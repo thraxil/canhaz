@@ -51,4 +51,4 @@ fetch('GET',Req) ->
     [TitleElement|_OtherHead] = element(3,Head),
     [Title] = element(3,TitleElement),
     [First|Rest] = Imgs,
-    Req:ok({"text/plain", First}).
+    Req:ok({"application/json", mochijson2:encode([{"images",Imgs}])}).
