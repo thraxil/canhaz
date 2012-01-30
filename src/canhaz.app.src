@@ -1,0 +1,9 @@
+%% -*- erlang -*-
+{application, canhaz,
+ [{description, "canhaz"},
+  {vsn, "0.1"},
+  {modules, []},
+  {registered, []},
+  {mod, {'canhaz_app', []}},
+  {env, []},
+  {applications, [kernel, stdlib, crypto]}]}.
