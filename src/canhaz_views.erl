@@ -44,11 +44,12 @@ page_fetch(URL) ->
 
 fetch('GET',Req) ->
     Url = canhaz_shortcuts:get_request_element('GET',Req,"url",""),
+    XPath = canhaz_shortcuts:get_request_element('GET',Req,"xpath","//img/@src"),
     {ok,Body} = page_fetch(Url),
     Tree = mochiweb_html:parse(Body),
-    Imgs = remove_duplicates(mochiweb_xpath:execute("//img/@src",Tree)),
+    Results = remove_duplicates(mochiweb_xpath:execute(XPath,Tree)),
 %    [Head|_Body] = element(3,Tree),
 %    [TitleElement|_OtherHead] = element(3,Head),
 %    [Title] = element(3,TitleElement),
 %    [First|Rest] = Imgs,
-    Req:ok({"application/json", mochijson2:encode([{"images",Imgs}])}).
+    Req:ok({"application/json", mochijson2:encode([{"results",Results}])}).
