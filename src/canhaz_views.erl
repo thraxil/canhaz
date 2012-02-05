@@ -28,13 +28,18 @@ fetch('GET',Req) ->
     case page_fetch(Url) of 
 	{ok,Body} ->
 	    Tree = mochiweb_html:parse(Body),
-	    Results = remove_duplicates(mochiweb_xpath:execute(XPath,Tree)),
-	    Req:ok({"application/json", 
-		    mochijson2:encode([{"results",
-					[results_to_proplist(R) || R <- Results]
-				       }])});
+	    try 
+		Results = remove_duplicates(mochiweb_xpath:execute(XPath,Tree)),
+	        Req:ok({"application/json", 
+			mochijson2:encode([{"results",
+					    [results_to_proplist(R) || R <- Results]
+					   }])})
+            catch 
+		_:_Reason ->
+			  Req:ok({"application/json",
+				  mochijson2:encode([{"error",list_to_binary("bad xpath")}])})
+            end;
 	{error,Reason} ->
-	    Req:ok({"application/json",
-		    mochijson2:encode([{"error",Reason}])})
+	    Req:ok({"application/json",mochijson2:encode([{"error",Reason}])})
     end.
 
