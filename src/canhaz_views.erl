@@ -25,10 +25,16 @@ results_to_proplist(Text) ->
 fetch('GET',Req) ->
     Url = canhaz_shortcuts:get_request_element('GET',Req,"url",""),
     XPath = canhaz_shortcuts:get_request_element('GET',Req,"xpath","//img/@src"),
-    {ok,Body} = page_fetch(Url),
-    Tree = mochiweb_html:parse(Body),
-    Results = remove_duplicates(mochiweb_xpath:execute(XPath,Tree)),
-    Req:ok({"application/json", 
-	    mochijson2:encode([{"results",
-				[results_to_proplist(R) || R <- Results]
-			       }])}).
+    case page_fetch(Url) of 
+	{ok,Body} ->
+	    Tree = mochiweb_html:parse(Body),
+	    Results = remove_duplicates(mochiweb_xpath:execute(XPath,Tree)),
+	    Req:ok({"application/json", 
+		    mochijson2:encode([{"results",
+					[results_to_proplist(R) || R <- Results]
+				       }])});
+	{error,Reason} ->
+	    Req:ok({"application/json",
+		    mochijson2:encode([{"error",Reason}])})
+    end.
+
