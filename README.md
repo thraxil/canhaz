@@ -4,16 +4,16 @@ Give it a URL and an XPath expression and it will fetch the URL, parse
 it, and return a JSON structure of the results of the XPath
 selection. 
 
-== Parameters ==
+## Parameters ##
 
 * url: the URL to fetch
 * xpath: the xpath expression
 
-== Example ==
+## Example ##
 
     curl 'http://localhost:8080/?url=http://example.com/&xpath=//img/@src'
 
-== Results ==
+## Results ##
 
 A successful request will return something like:
 
