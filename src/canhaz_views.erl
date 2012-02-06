@@ -2,7 +2,7 @@
 -export([urls/0,fetch/2]).
 
 urls() -> [
-	   {"^fetch/?$", fetch}
+	   {"^$", fetch}
 ].
 %% " 
 
