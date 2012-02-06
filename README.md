@@ -1,4 +1,4 @@
-CANHAZ is a simple scraping tool. 
+# CANHAZ is a simple scraping tool #
 
 Give it a URL and an XPath expression and it will fetch the URL, parse
 it, and return a JSON structure of the results of the XPath
