@@ -24,3 +24,10 @@ A bad xpath expression will return:
     {"error" : "bad xpath"}
 
 And HTTP errors will get passed along as well. 
+
+## Future Plans ##
+
+* CSS Selectors
+* multiple xpath expressions
+* multiple URLs
+* async callbacks
