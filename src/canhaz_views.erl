@@ -18,9 +18,9 @@ page_fetch(URL) ->
     end.
 
 results_to_proplist({Tag,Attrs,Children}) ->
-    {Tag,[{attrs,Attrs},{children,[results_to_proplist(R) || R <- Children]}]};
+    [{Tag,[{attrs,Attrs},{children,[results_to_proplist(R) || R <- Children]}]}];
 results_to_proplist(Text) ->
-    {text,Text}.
+    [{text,Text}].
 
 fetch('GET',Req) ->
     Url = canhaz_shortcuts:get_request_element('GET',Req,"url",""),
